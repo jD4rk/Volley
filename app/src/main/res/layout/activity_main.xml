@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" >
+
+    <data class="MainActivityBinding">
+        <variable
+            name="viewModel"
+            type="it.jdark.android.volley.viewModel.ResponseDataViewModel" />
+
+        <import type="android.view.View"/>
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="it.jdark.android.volley.MainActivity">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </android.support.design.widget.AppBarLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="?attr/actionBarSize" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/DataLayout"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_height="wrap_content"
+                    android:id="@+id/txt_city"
+                    android:layout_width="wrap_content"
+                    android:text='@{"City: " + viewModel.getName}'/>
+
+                <TextView
+                    android:id="@+id/txt_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{"Status: "+ viewModel.getStatus}' />
+
+                <TextView
+                    android:id="@+id/txt_humidity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{"Unidity: "+ viewModel.getHumidity}' />
+
+                <TextView
+                    android:id="@+id/txt_press"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text='@{"Pressure: "+ viewModel.getPressure}' />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/ImageLayout"
+                android:orientation="vertical"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/DataLayout">
+                <!--android:visibility="@{viewModel.getData == null ? View.GONE : View.VISIBLE}">-->
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="This is the ImageView" />
+                <ImageView
+                    android:id="@+id/imgView"
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="50dp"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="This is the NetworkImage" />
+                <com.android.volley.toolbox.NetworkImageView
+                    android:id="@+id/imgNetwork"
+                    android:layout_width="fill_parent"
+                    android:layout_height="150dp"
+                    android:layout_margin="10dp"
+                    android:layout_marginTop="50dp"
+                    android:scaleType="fitCenter" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>

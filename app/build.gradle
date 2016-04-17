@@ -1,0 +1,86 @@
+apply plugin: 'com.android.application'
+
+android {
+    if (project.hasProperty("KEY_STORE_FILE")) {
+        signingConfigs {
+            release {
+                storeFile file(KEY_STORE_FILE)
+                storePassword KEY_STORE_PASSWORD
+                keyAlias RELEASE_KEY_ALIAS
+                keyPassword RELEASE_KEY_PASSWORD
+            }
+            debug {
+                storeFile file(KEY_STORE_FILE)
+                storePassword KEY_STORE_PASSWORD
+                keyAlias RELEASE_KEY_ALIAS
+                keyPassword RELEASE_KEY_PASSWORD
+//                keyAlias DEBUG_KEY_ALIAS
+//                keyPassword DEBUG_KEY_PASSWORD
+            }
+        }
+    }
+
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "it.jdark.android.volley"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+            versionNameSuffix "-debug"
+            // Set this flag and use the same signature key "release" to void some message about incompatible version
+            // during install of debug and release version on the same phone
+            debuggable true
+        }
+    }
+    dataBinding {
+        enabled = true
+    }
+
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES.txt'
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/dependencies.txt'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/LGPL2.1'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/notice.txt'
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:design:23.3.0'
+
+    compile 'com.android.volley:volley:1.0.0'
+    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.jakewharton:disklrucache:2.0.2'
+
+    // Dependency to fix annotation @Generated("org.jsonschema2pojo") that came from http://www.jsonschema2pojo.org/ if you used it to generate pojo class for json responce
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+
+    debugCompile 'com.facebook.stetho:stetho:1.3.1'
+    debugCompile 'com.facebook.stetho:stetho-okhttp3:1.3.1'
+    debugCompile 'com.squareup.okhttp3:okhttp:3.2.0'
+    debugCompile 'org.apache.httpcomponents:httpcore:4.4.4'
+}
